@@ -76,6 +76,7 @@ def h5ify(obj: Any) -> Any:
 
 def deh5ify(obj: Any) -> Any:
     """Convert slightly mangled types back to more handy ones."""
+    # print(type(obj))
     if type(obj) == bytes:
         return obj.decode()
 
@@ -337,7 +338,13 @@ def datadict_from_hdf5(basepath: str,
             entry: Dict[str, Union[Collection[Any], np.ndarray]] = dict(values=np.array([]), )
 
             if 'axes' in ds.attrs:
-                entry['axes'] = deh5ify(ds.attrs['axes']).tolist()
+                if type(ds.attrs['axes']) == str: 
+                    #for some ungodly reason, if the file is written on a raspberry pi, 
+                    #this is the command that works, because the ndarrays are saved as strings
+                    entry['axes'] = ds.attrs['axes'].strip('][').strip("'").split(', ')
+                    
+                else: 
+                    entry['axes'] = deh5ify(ds.attrs['axes']).tolist()
             else:
                 entry['axes'] = []
 
