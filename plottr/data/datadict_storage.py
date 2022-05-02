@@ -568,7 +568,8 @@ class DDH5Writer(object):
 
         :returns: the filepath (without extension) of the data file.
         """
-        day_folder_path = os.path.join(self.basedir, time.strftime("%Y-%m-%d"))
+        # day_folder_path = os.path.join(self.basedir, time.strftime("%Y-%m-%d"))
+        day_folder_path = self.basedir
         os.makedirs(day_folder_path, exist_ok=True)
 
         filebase = time.strftime("%Y-%m-%d_")
@@ -586,7 +587,8 @@ class DDH5Writer(object):
         data_folder_path = os.path.join(day_folder_path, filebase)
         os.makedirs(data_folder_path, exist_ok=True)
 
-        return os.path.join(data_folder_path, filebase)
+        return os.path.join(day_folder_path, filebase)
+        # return filebase
 
     def add_data(self, **kwargs: Any) -> None:
         """Add data to the file (and the internal `DataDict`).
