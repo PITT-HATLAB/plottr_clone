@@ -585,7 +585,7 @@ class DDH5Writer(object):
             filebase += f"_{self.name}"
 
         data_folder_path = os.path.join(day_folder_path, filebase)
-        os.makedirs(data_folder_path, exist_ok=True)
+        # os.makedirs(data_folder_path, exist_ok=True)
 
         return os.path.join(day_folder_path, filebase)
         # return filebase
